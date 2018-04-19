@@ -42,4 +42,8 @@ class TwitterStreaming:
         auth = OAuthHandler(self.consumer_key, self.consumer_secret)
         auth.set_access_token(self.access_token, self.access_token_secret)
         twitter_stream = Stream(auth, _MyStreamListener(file_path))
-        twitter_stream.filter(track=track, follow=follow, languages=["en"])
+        while True:
+            try:
+                twitter_stream.filter(track=track, follow=follow, languages=["en"])
+            except:
+                continue
