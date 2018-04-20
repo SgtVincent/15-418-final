@@ -1,8 +1,24 @@
 ## TODO
 
-1. write a data_clean.py to clean the json data from twitter streaming API.
-2. write a stock data crawler
-3. format the stock data
-4. build network
-5. write a auto config script
+today:
+
+write a auto stock data clean script
+
+build basic Tensorflow network
+
+Saturday:
+
+clean and format the training data ( both twitter and stock data)
+
+build a runnable network
+
+Sunnday:
+
+improve the network code, making it extensible and scable
+
+write basic spark code
+
+Monday:
+
+…
 
