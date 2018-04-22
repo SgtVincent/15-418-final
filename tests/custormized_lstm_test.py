@@ -6,7 +6,7 @@ import numpy as np
 import tensorflow as tf
 
 sys.path.append("..")
-from models import building_blocks
+from models.basic_structure import building_blocks
 
 num_epochs = 100
 total_series_length = 50000

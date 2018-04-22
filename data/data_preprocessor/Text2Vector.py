@@ -1,3 +1,5 @@
+from __future__ import print_function
+from __future__ import print_function
 import nltk
 from os import path
 from nltk.tokenize import sent_tokenize
@@ -9,8 +11,8 @@ from matplotlib import pyplot
 import numpy as np
 
 current_path = path.dirname(path.abspath(__file__))
-parent_path = path.dirname(current_path)
-resource_path = path.join(parent_path, "resources/")
+root_path = path.dirname(path.dirname(current_path))
+resource_path = path.join(root_path, "resources/")
 DIMENSION = 300
 
 
@@ -46,7 +48,7 @@ def _text_tokenize(text):
 # return a list of list of word vectors
 def word2vec(texts):
     # load model
-    print "Google word2vec model loading, please wait ..."
+    print("Google word2vec model loading, please wait ...")
     filename = resource_path + "GoogleNews-vectors-negative300.bin"
     model = KeyedVectors.load_word2vec_format(filename, binary=True)
 
@@ -91,7 +93,7 @@ def texts2event(text_vectors):
 # visualize words
 def visualize_words(words):
     # load model
-    print "Google word2vec model loading, please wait ..."
+    print("Google word2vec model loading, please wait ...")
     filename = resource_path + "GoogleNews-vectors-negative300.bin"
     model = KeyedVectors.load_word2vec_format(filename, binary=True)
 
