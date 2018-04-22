@@ -1,16 +1,10 @@
 ## TODO
 
-today:
-
-write a auto stock data clean script
-
-build basic Tensorflow network
-
 Saturday:
 
-clean and format the training data ( both twitter and stock data)
+maybe finish stock data
 
-build a runnable network
+test lstm mode
 
 Sunnday:
 

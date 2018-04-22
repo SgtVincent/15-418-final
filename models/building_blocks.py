@@ -6,8 +6,7 @@ import numpy as np
 class customized_lstm:
 
     # input data has the shape of [batch_size, truncated_backprop_length, N]
-    def __init__(self, input_series, state_size, batch_size, truncated_backprop_length, input_dimension):
-        self._input_series = tf.unstack(input_series, axis=1)
+    def __init__(self, state_size, batch_size, truncated_backprop_length, input_dimension):
         self._state_size = state_size
         self._batch_size = batch_size
         self._truncated_backprop_length = truncated_backprop_length
@@ -27,12 +26,13 @@ class customized_lstm:
                            dtype=tf.float32), \
                tf.Variable(np.zeros((self._state_size, 1)), dtype=tf.float32)
 
-    def run(self):
+    def run(self, input_series):
         current_cell_state = self._init_cell_state
         current_hidden_state = self._init_hidden_state
         cell_states = []
         hidden_states = []
-        for current_input in self._input_series:
+        input_series = tf.unstack(input_series, axis=1)
+        for current_input in input_series:
             current_input = tf.reshape(current_input, [self._input_dimension, self._batch_size])
             # Increasing number of row
             input_and_state_concatenated = tf.concat([current_input, current_hidden_state], axis=0)
