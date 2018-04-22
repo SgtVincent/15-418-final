@@ -4,9 +4,11 @@ import sys
 
 import numpy as np
 import tensorflow as tf
-
-sys.path.append("..")
-from models.basic_structure import building_blocks
+from os import path
+current_path = path.dirname(path.abspath(__file__))
+parent_path = path.dirname(current_path)
+sys.path.append(parent_path)
+from models.basic_structure import custormized_lstm
 
 num_epochs = 100
 total_series_length = 50000
@@ -23,7 +25,7 @@ x = np.array(x.tolist(), dtype='f')
 x = x.reshape((batch_size, -1))
 
 # construct data map
-lstm = building_blocks.customized_lstm(state_size, batch_size, truncated_backprop_length, 1)
+lstm = custormized_lstm.customized_lstm(state_size, batch_size, truncated_backprop_length, 1)
 cell_states, hidden_states = lstm.run(x)
 
 # start session
