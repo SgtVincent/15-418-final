@@ -6,6 +6,7 @@ from nltk.corpus import stopwords
 from gensim.models import KeyedVectors
 from sklearn.decomposition import PCA
 from matplotlib import pyplot
+import numpy as np
 
 current_path = path.dirname(path.abspath(__file__))
 parent_path = path.dirname(current_path)
@@ -14,6 +15,8 @@ DIMENSION = 300
 
 
 # general clean of text
+# text is a string
+# return a list of words
 def _text_tokenize(text):
     # text to words
     try:
@@ -39,6 +42,8 @@ def _text_tokenize(text):
 
 
 # word to vector
+# texts is a list of string
+# return a list of list of word vectors
 def word2vec(texts):
     # load model
     print "Google word2vec model loading, please wait ..."
@@ -62,6 +67,28 @@ def word2vec(texts):
     return all_vectors
 
 
+# convert a list of word vectors to a text vector
+# word vectors is a list of word vector
+# return a single vector
+def text2vector_mean(word_vectors):
+    text_vector = np.array(word_vectors)
+    text_vector = np.mean(text_vector, axis=0)
+    return text_vector.tolist()
+
+
+# convert text vectors to an event vector
+# text_vector is a list of text vectors
+# return a single event vector
+def texts2event(text_vectors):
+    event_vector = []
+    temp_array = np.array(text_vectors)
+    event_vector += np.max(temp_array, axis=0).tolist()
+    event_vector += np.min(temp_array, axis=0).tolist()
+    event_vector += np.mean(temp_array, axis=0).tolist()
+    return event_vector
+
+
+# visualize words
 def visualize_words(words):
     # load model
     print "Google word2vec model loading, please wait ..."
