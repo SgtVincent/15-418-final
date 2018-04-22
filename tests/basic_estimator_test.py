@@ -1,35 +1,76 @@
+import random
 import sys
-
 import numpy as np
+import tensorflow as tf
+from os import path
 
-sys.path.append("..")
+current_path = path.dirname(path.abspath(__file__))
+parent_path = path.dirname(current_path)
+sys.path.append(parent_path)
+from models.model_fn import lstm_fn
 
 num_epochs = 100
-total_series_length = 200
 truncated_backprop_length = 15
 state_size = 4
 num_classes = 2
 echo_step = 3
 batch_size = 5
-num_batches = total_series_length // batch_size // truncated_backprop_length
+input_dimension = 1
+train_steps = 100
 
 
-def generateData():
-    x = np.array(np.random.choice(2, total_series_length, p=[0.5, 0.5]))
-    y = np.roll(x, echo_step)
-    y[0:echo_step] = 0
+def generate_data(number_of_batch):
+    data = []
+    label = []
+    for _ in range(0, number_of_batch):
+        for __ in range(0, batch_size):
+            p = random.random()
+            if p > 0.5:
+                q = random.random()
+                for index in range(0, truncated_backprop_length):
+                    data.append(np.float32(q + 0.1 * index))
+                label.append(1)
+            else:
+                q = random.random()
+                for index in range(0, truncated_backprop_length):
+                    data.append(np.float32(q - 0.1 * index))
+                label.append(0)
 
-    x = x.reshape((batch_size, -1))  # The first index changing slowest, subseries as rows
-    y = y.reshape((batch_size, -1))
+    data = np.array(data)
+    label = np.array(label)
+    data = data.reshape(-1, truncated_backprop_length, input_dimension)
+    return data, label
 
-    return x, y
+
+x_train, y_train = generate_data(100)
+x_test, y_test = generate_data(10)
+x_train = {'feature': x_train}
+x_test = {'feature': x_test}
 
 
-# def train_input_fn(features, labels, batch_size):
-#     """An input function for training"""
-#     # Convert the inputs to a Dataset.
-#     dataset = tf.data.Dataset.from_tensor_slices((dict(features), labels))
-#
-#     # Shuffle, repeat, and batch the examples.
-#     return dataset.shuffle(1000).repeat().batch(batch_size)
+def train_input_fn(features, labels, batch):
+    """An input function for training"""
+    # Convert the inputs to a Dataset.
+    dataset = tf.data.Dataset.from_tensor_slices((dict(features), labels))
 
+    # Shuffle, repeat, and batch the examples.
+    return dataset.batch(batch)
+
+
+classifier = tf.estimator.Estimator(
+    model_fn=lstm_fn.lstm_model_fn,
+    params={
+        'batch_size': batch_size,
+        'state_size': state_size,
+        'truncated_backprop_length': truncated_backprop_length,
+        'input_dimension': input_dimension,
+        'num_classes': num_classes
+    })
+
+classifier.train(
+    input_fn=lambda: train_input_fn(x_train, y_train, batch_size), steps=train_steps)
+
+eval_result = classifier.evaluate(
+    input_fn=lambda: train_input_fn(x_test, y_test, batch_size))
+
+print('\nTest set accuracy: {accuracy:0.3f}\n'.format(**eval_result))

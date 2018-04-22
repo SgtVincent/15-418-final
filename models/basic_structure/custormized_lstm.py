@@ -33,7 +33,7 @@ class customized_lstm:
         hidden_states = []
         input_series = tf.unstack(input_series, axis=1)
         for current_input in input_series:
-            current_input = tf.reshape(current_input, [self._input_dimension, self._batch_size])
+            current_input = tf.transpose(current_input)
             # Increasing number of row
             input_and_state_concatenated = tf.concat([current_input, current_hidden_state], axis=0)
 
