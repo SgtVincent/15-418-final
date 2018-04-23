@@ -30,6 +30,7 @@ def da_rnn_fn(features, labels, mode, params):
     # first lstm for attention of exogenous
     lstm0 = dynamic_lstm.dynamic_lstm(state_size=state_size, batch_size=batch_size, keep_rate=keep_rate)
     hidden_states, last_state = lstm0.run(X)
+    hidden_states = tf.unstack(hidden_states, axis=1)
     last_hidden_state = hidden_states[-1]
     attention_hidden_states = hidden_states[0:-1]
 
@@ -39,15 +40,23 @@ def da_rnn_fn(features, labels, mode, params):
     V0 = tf.Variable(np.random.rand(truncated_backprop_length, 1), dtype=tf.float32)
 
     # build exogenous attention
+    weights = []
     for h in attention_hidden_states:
-        for x in Xn:
+        attention_matrix = 0
+        # x's shape [batch_size, max_time]
+        for x in Xn:  # exogenous_number
             # e's shape [b, 1]
             e = tf.matmul(tf.nn.tanh(tf.matmul(h, W0) + tf.matmul(x, U0)), V0)
+            if attention_matrix == 0:
+                attention_matrix = e
+            else:
+                attention_matrix = tf.concat([attention_matrix, e], axis=1)
+        attention_matrix = tf.nn.softmax(attention_matrix)
+        weights.append(attention_matrix)
 
-
-
-
-
+    weighted_Xt = []
+    for i in range(0,truncated_backprop_length):
+        weighted_Xt.append(weights[i] * Xt[i])
 
 
 

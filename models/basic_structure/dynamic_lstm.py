@@ -22,5 +22,5 @@ class dynamic_lstm:
         outputs, last_state = tf.nn.dynamic_rnn(self._cell, input_series,
                                                 initial_state=self._init_state,
                                                 dtype=tf.float32)
-        _init_state_concat = tf.reshape(self._init_hidden_state, [1 , self._batch_size,self._state_size])
-        return tf.concat([_init_state_concat, outputs], axis=0), last_state  # maybe wrong here
+        _init_state_concat = tf.reshape(self._init_hidden_state, [self._batch_size, 1, self._state_size])
+        return tf.concat([_init_state_concat, outputs], axis=1), last_state
