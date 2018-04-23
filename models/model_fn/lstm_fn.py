@@ -53,7 +53,6 @@ def lstm_model_fn(features, labels, mode, params):
 
     # Compute loss.
     loss = tf.losses.sparse_softmax_cross_entropy(labels=labels, logits=logits)
-
     # Compute evaluation metrics.
     accuracy = tf.metrics.accuracy(labels=labels,
                                    predictions=predicted_classes,

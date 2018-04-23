@@ -1,7 +1,6 @@
 import tensorflow as tf
 import numpy as np
 
-
 # a homemade lstm network
 class customized_lstm:
 

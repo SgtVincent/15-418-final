@@ -9,7 +9,7 @@ parent_path = path.dirname(current_path)
 sys.path.append(parent_path)
 from models.model_fn import lstm_fn
 
-num_epochs = 100
+num_epochs = 10
 truncated_backprop_length = 15
 state_size = 4
 num_classes = 2
@@ -17,6 +17,7 @@ echo_step = 3
 batch_size = 5
 input_dimension = 1
 train_steps = 100
+model_path = path.join(parent_path, 'resources/model_checkpoint/another_test')
 
 
 def generate_data(number_of_batch):
@@ -65,12 +66,14 @@ classifier = tf.estimator.Estimator(
         'truncated_backprop_length': truncated_backprop_length,
         'input_dimension': input_dimension,
         'num_classes': num_classes
-    })
+    },
+    model_dir=model_path,
+    config=tf.estimator.RunConfig().replace(save_summary_steps=5))
 
-classifier.train(
-    input_fn=lambda: train_input_fn(x_train, y_train, batch_size), steps=train_steps)
+# classifier.train(
+#     input_fn=lambda: train_input_fn(x_train, y_train, batch_size), steps=100,)
 
 eval_result = classifier.evaluate(
-    input_fn=lambda: train_input_fn(x_test, y_test, batch_size))
+    input_fn=lambda: train_input_fn(x_test, y_test, batch_size), steps=10)
 
 print('\nTest set accuracy: {accuracy:0.3f}\n'.format(**eval_result))

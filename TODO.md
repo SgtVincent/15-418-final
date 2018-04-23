@@ -1,18 +1,9 @@
 ## TODO
 
-Saturday:
-
-maybe finish stock data
-
-test lstm mode
-
-Sunnday:
-
-improve the network code, making it extensible and scable
-
-write basic spark code
-
-Monday:
-
-…
-
+1. build da-rnn
+2. build ch-rnn
+3. stock crawler
+4. clean and format data
+5. build sample training data and input_fn
+6. deploy on a single machine, debug
+7. try paralyze

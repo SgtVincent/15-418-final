@@ -5,3 +5,4 @@
 *.DS_Store
 /resources/*
 !/resources/NASDQ100.txt
+.DS_Store
