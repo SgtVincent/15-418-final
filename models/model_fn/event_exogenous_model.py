@@ -106,6 +106,10 @@ def da_rnn_fn(features, labels, mode, params):
             event_output += Beta * event_hidden_states[j]
 
     # combine exogenous_output and event_output
+    # event_output [batch_size, state_size]
+    # exogenous_output [batch_size, state_size]
+    combined_output = tf.concat([event_output, exogenous_output], axis=1)
+    values = tf.layers.dense(combined_output, state_size)
 
     # Compute predictions.
     if mode == tf.estimator.ModeKeys.PREDICT:
@@ -114,12 +118,10 @@ def da_rnn_fn(features, labels, mode, params):
 
     # Compute loss.
     loss = tf.losses.mean_squared_error(labels, values)
+
     # Compute evaluation metrics.
-    accuracy = tf.metrics.accuracy(labels=labels,
-                                   predictions=predicted_classes,
-                                   name='acc_op')
-    metrics = {'accuracy': accuracy}
-    tf.summary.scalar('accuracy', accuracy[1])
+    accuracy = tf.metrics.mean_squared_error(labels=labels, predictions=values, name='MSE')
+    metrics = {'MSE': accuracy}
 
     if mode == tf.estimator.ModeKeys.EVAL:
         return tf.estimator.EstimatorSpec(
@@ -127,7 +129,6 @@ def da_rnn_fn(features, labels, mode, params):
 
     # Create training op.
     assert mode == tf.estimator.ModeKeys.TRAIN
-
     optimizer = tf.train.AdagradOptimizer(learning_rate=0.1)
     train_op = optimizer.minimize(loss, global_step=tf.train.get_global_step())
     return tf.estimator.EstimatorSpec(mode, loss=loss, train_op=train_op)

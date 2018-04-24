@@ -1,9 +1,7 @@
 ## TODO
 
-1. build da-rnn
-2. build ch-rnn
-3. stock crawler
-4. clean and format data
-5. build sample training data and input_fn
-6. deploy on a single machine, debug
-7. try paralyze
+1.. stock crawler
+2. clean and format data
+3. build sample training data and input_fn
+4. deploy on a single machine, debug
+5. try paralyze
