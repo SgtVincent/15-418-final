@@ -55,8 +55,20 @@ def da_rnn_fn(features, labels, mode, params):
         weights.append(attention_matrix)
 
     weighted_Xt = []
-    for i in range(0,truncated_backprop_length):
+    for i in range(0, truncated_backprop_length):
         weighted_Xt.append(weights[i] * Xt[i])
+
+    # reshape the weighted_x
+    weighted_Xt = tf.stack(weighted_Xt)
+    weighted_Xt = tf.unstack(weighted_Xt, axis=1)
+    weighted_Xt = tf.stack(weighted_Xt)
+
+    # get all hidden vector again
+    hidden_states, last_state = lstm0.run(weighted_Xt)
+    attention_hidden_states = hidden_states[1:]  # shape [batch_size, max_time, state_size]
+
+    # build second attention network
+    
 
 
 

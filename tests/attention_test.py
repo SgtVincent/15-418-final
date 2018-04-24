@@ -43,6 +43,9 @@ weighted_Xt = []
 for i in range(0,truncated_backprop_length):
     weighted_Xt.append(weights[i] * Xt[i])
 
+weighted_Xt = tf.stack(weighted_Xt)
+weighted_Xt = tf.unstack(weighted_Xt, axis=1)
+weighted_Xt = tf.stack(weighted_Xt)
 with tf.Session() as sess:
     sess.run(tf.initialize_all_variables())
     print(sess.run(weighted_Xt))
