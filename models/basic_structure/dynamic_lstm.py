@@ -16,7 +16,7 @@ class dynamic_lstm:
     # run the dynamic lstm
     # input shape [batch_size, max_time, input_dimension]
     # output two variables: hidden_states, last_state
-    # hidden_state shape [batch_size, max_time, state_size]
+    # hidden_state shape [batch_size, max_time + 1, state_size]
     # last_state shape [batch_size, state_size]
     def run(self, input_series):
         outputs, last_state = tf.nn.dynamic_rnn(self._cell, input_series,

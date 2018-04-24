@@ -49,7 +49,7 @@ class attention_based_lstm:
             attention_matrix = tf.unstack(attention_matrix, axis=1)
             c = 0  # c's shape [batch_size, m]
             for j in range(0, self._truncated_backprop_length):
-                Beta = tf.reshape(attention_matrix[j],[self._batch_size, 1])
+                Beta = tf.reshape(attention_matrix[j], [self._batch_size, 1])
                 if c == 0:
                     c = Beta * attention_weights[j]
                 else:
