@@ -40,9 +40,7 @@ predicted_classes = tf.argmax(logits, 1)
 class_ids = predicted_classes[:, tf.newaxis],
 probabilities = tf.nn.softmax(logits)
 
-a= [[1,2,0],[0,3,4]]
-a=tf.reshape(a,[2,1,3])
 # start session
 with tf.Session() as sess:
     sess.run(tf.initialize_all_variables())
-    print(sess.run(a))
+    print(sess.run(probabilities))

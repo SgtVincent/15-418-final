@@ -28,12 +28,8 @@ hidden_states, last_state = lstm.run(x)
 hidden_states = tf.unstack(hidden_states, axis=1)
 attention_hidden_states = hidden_states[0:-1]
 
-a = tf.constant([[2,2],
-                [2,2]])
-b = tf.constant([[2,2],[2,2]])
-c = tf.layers.dense(a,3)
 
 # test shape
 with tf.Session() as sess:
     sess.run(tf.initialize_all_variables())
-    print(sess.run(c))
+    print(sess.run(attention_hidden_states))
