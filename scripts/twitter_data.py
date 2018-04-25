@@ -14,7 +14,7 @@ consumer_secret = "LjcezoypAs4Rjgmsd32bd8dB6tkGg7c6UvpIQ66hUi99EJYyPB"
 
 # config parameters
 file_path = path.join(root_path, 'resources/NASDQ100.txt')
-result_path = path.join(root_path, '/resources/NASDQ100_tweets.json')
+result_path = path.join(root_path, 'resources/NASDQ100_tweets.json')
 with open(file_path, 'r') as f:
     stock_symbol = f.read()
     track = stock_symbol.split(",")
