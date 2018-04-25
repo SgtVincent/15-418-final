@@ -21,8 +21,7 @@ def CreateTable(cursor):
 
 
 def InsertTweet(cursor, row):
-    b = cursor.execute('INSERT INTO Tweets VALUES (?,?,?,?,?,?,?)', row)
-    x = 1
+    cursor.execute('INSERT INTO Tweets VALUES (?,?,?,?,?,?,?)', row)
 
 
 file_path = path.join(resource_path, "formatted_tweets.json")
@@ -39,6 +38,13 @@ with open(file_path, 'r') as f:
         row = [js['Date'], js['text'], js['followers_count'], js['listed_count'], js['statuses_count'],
                js['friends_count'], js['favourites_count']]
         InsertTweet(cursor, row)
+        if count % 10000 == 0:
+            print "commit 10000 rows..."
+            conn.commit()
+            count == 0
 
-for row in cursor.execute("SELECT * FROM Tweets"):
+    conn.commit()        
+
+for row in cursor.execute("SELECT COUNT(*) FROM Tweets"):
     print(row)
+conn.close()
