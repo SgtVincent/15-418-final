@@ -5,6 +5,7 @@ import sys
 current_path = path.dirname(path.abspath(__file__))
 root_path = path.dirname(current_path)
 resource_path = path.join(root_path, "resources")
+
 sys.path.append(root_path)
 from data.data_preprocessor.twitter_filter import *
 

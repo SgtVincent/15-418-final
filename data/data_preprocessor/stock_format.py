@@ -9,3 +9,4 @@ filename = "AAPL_5d.xls"
 file_path = path.join(resource_path, filename)
 df = pd.read_excel(file_path)
 
+print df
