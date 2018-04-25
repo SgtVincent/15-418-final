@@ -27,7 +27,7 @@ def InsertTweet(cursor, row, ):
     cursor.execute('INSERT INTO Tweets VALUES (?,?,?,?,?,?,?)', row)
 
 
-file_path = path.join(resource_path, "formated_tweets.json")
+file_path = path.join(resource_path, "formatted_tweets.json")
 database_path = path.join(resource_path, "tweets.db")
 
 conn = sqlite3.connect(database_path)
