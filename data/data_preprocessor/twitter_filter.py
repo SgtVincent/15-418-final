@@ -1,6 +1,3 @@
-# TODO: filter twitter data, all functions declared here input a twitter, output a boolean
-
-
 # convert a file split by split_symbol to a list
 def file2key_words(words_file, split_symbol):
     with open(words_file, 'r') as f:
