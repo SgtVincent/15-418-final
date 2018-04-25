@@ -19,7 +19,7 @@ with open(twitter_path, 'r') as f:
     with open(result_path, 'w') as g:
         for line in f:
             count += 1
-            if count % 10000000:
+            if (count % 10000) == 0:
                 count = 0
                 print("still working!")
             twitter = json.loads(line)
