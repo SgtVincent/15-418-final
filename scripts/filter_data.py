@@ -5,7 +5,7 @@ import sys
 current_path = path.dirname(path.abspath(__file__))
 root_path = path.dirname(current_path)
 resource_path = path.join(root_path, "resources")
-sys.path.append(resource_path)
+sys.path.append(root_path)
 from data.data_preprocessor.twitter_filter import *
 
 twitter_path = path.join(resource_path, "NASDQ100_tweets.json")
