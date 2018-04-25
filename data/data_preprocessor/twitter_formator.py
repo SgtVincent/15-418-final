@@ -1,11 +1,14 @@
 import json
-
+import time
 
 def twitter_format(twitter):
     twitter = json.loads(twitter)
     formatted_twitter = {}
     try:
-        formatted_twitter['Date'] = twitter['created_at']
+        formatted_twitter['Date'] = time.strftime('%Y-%m-%d %H:%M:%S',
+                                                  time.strptime(twitter['created_at'],
+                                                                '%a %b %d %H:%M:%S +0000 %Y'))
+
         formatted_twitter['text'] = twitter['text']
         formatted_twitter['user_id'] = twitter['user']['id']
         formatted_twitter['followers_count'] = twitter['user']['followers_count']
@@ -17,3 +20,4 @@ def twitter_format(twitter):
         pass
     twitter = json.dumps(formatted_twitter)
     return twitter
+
