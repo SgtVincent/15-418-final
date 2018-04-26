@@ -29,6 +29,7 @@ class attention_based_lstm:
     def run(self, input_series, attention_weights):
         input_series = tf.unstack(input_series, axis=1)  # shape [truncated_backprop_length, batch_size, input_dimension]
         attention_weights = tf.unstack(attention_weights, axis=1)  # shape [truncated_backprop_length, batch_size, input_dimension]
+        attention_weights = attention_weights[1:]
         current_state = self._init_state
         hidden_state = self._init_hidden_state
 

@@ -3,7 +3,7 @@ import tensorflow as tf
 
 # a dynamic lstm built on tensorflow official api
 class dynamic_lstm:
-    def __init__(self, state_size, batch_size, keep_rate):
+    def __init__(self, state_size, batch_size, keep_rate, name):
         # build the lstm network
         self._batch_size = batch_size
         self._state_size = state_size
