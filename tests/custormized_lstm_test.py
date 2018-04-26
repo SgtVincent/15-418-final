@@ -19,12 +19,12 @@ echo_step = 3
 batch_size = 5
 num_batches = total_series_length // batch_size // truncated_backprop_length
 
-# generate data
+# generate data_methods
 x = np.random.rand(batch_size * truncated_backprop_length)
 x = np.array(x.tolist(), dtype='f')
 x = x.reshape((batch_size, truncated_backprop_length, 1))
 
-# construct data map
+# construct data_methods map
 lstm = custormized_lstm.customized_lstm(state_size, batch_size, truncated_backprop_length, 1)
 cell_states, hidden_states = lstm.run(x)
 

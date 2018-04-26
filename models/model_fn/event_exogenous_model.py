@@ -15,13 +15,15 @@ from models.basic_structure import attention_based_lstm
 # shape of feature event: [batch_size, truncated_backprop_length, embedding_dimension]
 # shape of label : [batch_size, label_dimension]
 def complex_model(features, labels, mode, params):
+
+    # declare all training data_methods
     X = features['X']
     Y = features['Y']
     events = features['event']
     Xt = tf.unstack(X, axis=1)
     Xn = tf.unstack(X, axis=2)
 
-    # build compute network
+    # set parameters
     batch_size = params['batch_size']
     state_size = params['state_size']
     truncated_backprop_length = params['truncated_backprop_length']
@@ -35,12 +37,11 @@ def complex_model(features, labels, mode, params):
     hidden_states = tf.unstack(hidden_states, axis=1)
     attention_hidden_states = hidden_states[0:-1]
 
-    # first attention network
+    # apply attention to exogenous
     W0 = tf.Variable(np.random.rand(state_size, truncated_backprop_length), dtype=tf.float32)
     U0 = tf.Variable(np.random.rand(truncated_backprop_length, truncated_backprop_length), dtype=tf.float32)
     V0 = tf.Variable(np.random.rand(truncated_backprop_length, 1), dtype=tf.float32)
 
-    # build exogenous attention
     weights = []
     for h in attention_hidden_states:
         attention_matrix = 0

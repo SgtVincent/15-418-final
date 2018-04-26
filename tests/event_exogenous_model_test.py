@@ -83,8 +83,8 @@ classifier = tf.estimator.Estimator(
     model_dir=model_path,
     config=tf.estimator.RunConfig().replace(save_summary_steps=5))
 
-# classifier.train(
-#     input_fn=lambda: train_input_fn(x_train, y_train, batch_size), steps=100, )
+classifier.train(
+    input_fn=lambda: train_input_fn(x_train, y_train, batch_size), steps=100, )
 
 eval_result = classifier.evaluate(
     input_fn=lambda: train_input_fn(x_test, y_test, batch_size))

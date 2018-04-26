@@ -26,8 +26,8 @@ def lstm_model_fn(features, labels, mode, params):
     num_classes = params['num_classes']
 
     lstm = custormized_lstm.customized_lstm(state_size=state_size, batch_size=batch_size,
-                                            truncated_backprop_length=truncated_backprop_length,
-                                            input_dimension=input_dimension)
+                                            time_size=truncated_backprop_length,
+                                            feature_size=input_dimension)
 
     cell_states, hidden_states = lstm.run(input_series)
 
