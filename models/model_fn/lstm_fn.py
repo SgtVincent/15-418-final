@@ -6,7 +6,7 @@ import sys
 current_path = path.dirname(path.abspath(__file__))
 parent_path = path.dirname(current_path)
 sys.path.append(parent_path)
-from models.basic_structure import custormized_lstm
+from models.building_blocks import custormized_lstm
 
 
 # lstm model fn

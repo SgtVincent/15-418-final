@@ -46,11 +46,12 @@ def _text_tokenize(text):
 # word to vector
 # texts is a list of string
 # return a list of list of word vectors
-def word2vec(texts):
+def texts2vectors(texts):
     # load model
     print("Google word2vec model loading, please wait ...")
     filename = resource_path + "GoogleNews-vectors-negative300.bin"
     model = KeyedVectors.load_word2vec_format(filename, binary=True)
+    print("Load finished, running...")
 
     # word to vec
     all_vectors = []
@@ -72,7 +73,7 @@ def word2vec(texts):
 # convert a list of word vectors to a text vector
 # word vectors is a list of word vector
 # return a single vector
-def text2vector_mean(word_vectors):
+def vectors_mean(word_vectors):
     text_vector = np.array(word_vectors)
     text_vector = np.mean(text_vector, axis=0)
     return text_vector.tolist()
@@ -81,7 +82,7 @@ def text2vector_mean(word_vectors):
 # convert text vectors to an event vector
 # text_vector is a list of text vectors
 # return a single event vector
-def texts2event(text_vectors):
+def vectors_mix(text_vectors):
     event_vector = []
     temp_array = np.array(text_vectors)
     event_vector += np.max(temp_array, axis=0).tolist()
@@ -96,6 +97,7 @@ def visualize_words(words):
     print("Google word2vec model loading, please wait ...")
     filename = resource_path + "GoogleNews-vectors-negative300.bin"
     model = KeyedVectors.load_word2vec_format(filename, binary=True)
+    print("Load finished, running...")
 
     # generate vectors
     word_vectors = []

@@ -5,7 +5,7 @@ import tensorflow as tf
 current_path = path.dirname(path.abspath(__file__))
 parent_path = path.dirname(current_path)
 sys.path.append(parent_path)
-from models.basic_structure import attention_based_lstm
+from models.building_blocks import attention_based_lstm
 
 truncated_backprop_length = 3
 state_size = 3

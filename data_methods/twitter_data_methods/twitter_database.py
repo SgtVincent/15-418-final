@@ -34,7 +34,7 @@ class twitter_database:
             tweet,
             table_name='Tweets',
             keys=['Date', 'text', 'followers_count', 'listed_count', 'statuses_count',
-                    'friends_count', 'favourites_count'],
+                  'friends_count', 'favourites_count'],
             batch_mode=True
     ):
         row = [tweet[key] for key in keys]
@@ -46,8 +46,13 @@ class twitter_database:
             return
 
         self.insert_count += 1
-        if self.insert_count % 10000 == 0:
+        if self.insert_count % 10 == 0:
             self.conn.commit()
             self.insert_count = 0
-            print ("Commit 10000 inserts...")
+            print("Commit 10000 inserts...")
 
+    # query is a SQL format string
+    # return a what
+    def query(self, query):
+        self.cursor.execute(query)
+        return self.cursor.fetchall()

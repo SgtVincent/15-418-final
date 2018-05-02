@@ -6,8 +6,8 @@ import sys
 current_path = path.dirname(path.abspath(__file__))
 parent_path = path.dirname(current_path)
 sys.path.append(parent_path)
-from models.basic_structure import dynamic_lstm
-from models.basic_structure import attention_based_lstm
+from models.building_blocks import dynamic_lstm
+from models.building_blocks import attention_based_lstm
 
 
 # shape of feature X: [batch_size, truncated_backprop_length, exogenous_number]

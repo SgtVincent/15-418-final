@@ -8,7 +8,7 @@ from os import path
 current_path = path.dirname(path.abspath(__file__))
 parent_path = path.dirname(current_path)
 sys.path.append(parent_path)
-from models.basic_structure import custormized_lstm
+from models.building_blocks import custormized_lstm
 
 num_epochs = 100
 total_series_length = 5000

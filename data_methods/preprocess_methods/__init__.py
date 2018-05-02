@@ -1,0 +1,3 @@
+from Text2Vector import texts2vectors
+from Text2Vector import vectors_mean
+from Text2Vector import vectors_mix

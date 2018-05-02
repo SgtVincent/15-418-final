@@ -7,7 +7,7 @@ from os import path
 current_path = path.dirname(path.abspath(__file__))
 parent_path = path.dirname(current_path)
 sys.path.append(parent_path)
-from models.model_fn import event_exogenous_model
+from models.model_fn import hybrid_fn
 
 keep_rate = 0.9
 max_time = 15
@@ -72,7 +72,7 @@ def train_input_fn(features, labels, batch):
 
 
 classifier = tf.estimator.Estimator(
-    model_fn=event_exogenous_model.complex_model,
+    model_fn=hybrid_fn.complex_model,
     params={
         'batch_size': batch_size,
         'state_size': state_size,
