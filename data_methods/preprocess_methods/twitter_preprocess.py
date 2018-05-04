@@ -66,6 +66,7 @@ for item in query_result:
 p = text2Vec()
 event_vectors = []
 threads = mp.Pool(processes=8)
+print("map working...")
 text_list = threads.map(p.texts2vectors, text_list)
 # list_len = len(text_list)
 # j = 0
@@ -74,6 +75,7 @@ text_list = threads.map(p.texts2vectors, text_list)
 #     j += 1
 #     if j % 10 == 0:
 #         print(str(j) + " completed")
+print("map done...")
 for texts in text_list:
     text_vectors = map(p.vectors_mean, texts)
     event_vector = p.vectors_mix(text_vectors)
