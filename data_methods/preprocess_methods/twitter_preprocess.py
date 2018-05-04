@@ -4,6 +4,7 @@ from data_methods.twitter_data_methods import twitter_database
 from data_methods.preprocess_methods import text2Vec
 from datetime import datetime
 import pickle
+import multiprocessing as mp
 
 current_path = path.dirname(path.abspath(__file__))
 parent_path = path.dirname(path.dirname(current_path))
@@ -64,14 +65,15 @@ for item in query_result:
 
 p = text2Vec()
 event_vectors = []
-# text_list = map(p.texts2vectors, text_list)
-list_len = len(text_list)
-j = 0
-for i in range(0, len(text_list)):
-    text_list[i] = p.texts2vectors(text_list[i])
-    j += 1
-    if j % 10 == 0:
-        print(str(j) + " completed")
+threads = mp.Pool(processes=8)
+text_list = threads.map(p.texts2vectors, text_list)
+# list_len = len(text_list)
+# j = 0
+# for i in range(0, len(text_list)):
+#     text_list[i] = p.texts2vectors(text_list[i])
+#     j += 1
+#     if j % 10 == 0:
+#         print(str(j) + " completed")
 for texts in text_list:
     text_vectors = map(p.vectors_mean, texts)
     event_vector = p.vectors_mix(text_vectors)
