@@ -1,7 +1,7 @@
 from __future__ import print_function
 from os import path
 from data_methods.twitter_data_methods import twitter_database
-from data_methods.preprocess_methods import text2Vec
+from data_methods.preprocess_methods import *
 from datetime import datetime
 import pickle
 import multiprocessing as mp
@@ -63,11 +63,10 @@ text_list = [[]] * bucket_num
 for item in query_result:
     text_list[item[0]].append(item[1])
 
-p = text2Vec()
 event_vectors = []
 threads = mp.Pool(processes=8)
 print("map working...")
-text_list = threads.map(p.texts2vectors, text_list)
+text_list = threads.map(texts2vectors, text_list)
 # list_len = len(text_list)
 # j = 0
 # for i in range(0, len(text_list)):
@@ -77,7 +76,7 @@ text_list = threads.map(p.texts2vectors, text_list)
 #         print(str(j) + " completed")
 print("map done...")
 for texts in text_list:
-    text_vectors = map(p.vectors_mean, texts)
-    event_vector = p.vectors_mix(text_vectors)
+    text_vectors = map(vectors_mean, texts)
+    event_vector = vectors_mix(text_vectors)
     event_vectors.append(event_vector)
 pickle.dump(event_vectors, open(path.join(parent_path, "resources/training_data/event_vectors.p"), "wb"))
