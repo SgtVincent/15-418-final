@@ -1,7 +1,7 @@
 import tensorflow as tf
 
 
-# a dynamic lstm built on tensorflow official api
+# a dynamic lstm built on tensorflow official API
 class dynamic_lstm:
     def __init__(self, state_size, batch_size, keep_rate):
         # set up parameters

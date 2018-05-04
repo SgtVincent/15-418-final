@@ -1,7 +1,7 @@
 from __future__ import print_function
 from os import path
 from data_methods.twitter_data_methods import twitter_database
-from data_methods.preprocess_methods import Text2Vector
+from data_methods.preprocess_methods import text2Vec
 from datetime import datetime
 import pickle
 
@@ -10,7 +10,9 @@ parent_path = path.dirname(path.dirname(current_path))
 db_path = path.join(parent_path, 'resources/twitter_database.db')
 
 # parameters
-query = "SELECT Date,text from Tweets"
+query = "SELECT Date,text from Tweets WHERE followers_count > 100000 " \
+        "AND DATETIME(Date) >= '2018-04-23 09:00:00' AND DATETIME(Date) <= '2018-04-27 16:00:00'"
+
 start_time = datetime.strptime('9:30AM', '%I:%M%p').time()
 end_time = datetime.strptime('4:00PM', '%I:%M%p').time()
 minutes_in_day = 390
@@ -56,14 +58,22 @@ def date_to_key(x):
 
 query_result = map(date_to_key, query_result)
 text_list = [[]] * bucket_num
+
 for item in query_result:
     text_list[item[0]].append(item[1])
 
+p = text2Vec()
 event_vectors = []
-text_list = map(Text2Vector.texts2vectors, text_list)
+# text_list = map(p.texts2vectors, text_list)
+list_len = len(text_list)
+j = 0
+for i in range(0, len(text_list)):
+    text_list[i] = p.texts2vectors(text_list[i])
+    j += 1
+    if j % 10 == 0:
+        print(str(j) + " completed")
 for texts in text_list:
-    text_vectors = map(Text2Vector.vectors_mean, texts)
-    event_vector = Text2Vector.vectors_mix(text_vectors)
+    text_vectors = map(p.vectors_mean, texts)
+    event_vector = p.vectors_mix(text_vectors)
     event_vectors.append(event_vector)
-pickle.dump(event_vectors, open("event_vectors.p", "wb"))
-print(event_vectors[0])
+pickle.dump(event_vectors, open(path.join(parent_path, "resources/training_data/event_vectors.p"), "wb"))
