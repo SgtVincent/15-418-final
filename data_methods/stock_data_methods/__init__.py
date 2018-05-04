@@ -1,2 +1,3 @@
 from stock_format import stock_batch_read
+from stock_format import stock_names
 from stock_database import stock_database

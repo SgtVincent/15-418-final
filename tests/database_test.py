@@ -2,9 +2,19 @@ from os import path
 
 current_path = path.dirname(path.abspath(__file__))
 parent_path = path.dirname(current_path)
-db_path = path.join(parent_path, 'resources/twitter_database.db')
-from data_methods.twitter_data_methods import twitter_database
 
-db = twitter_database(db_path)
-print(db.query("SELECT MIN(Date), MAX(Date), COUNT(*) FROM Tweets WHERE followers_count > 100000 \
-                AND DATETIME(Date) >= '2018-04-23 09:00:00' AND DATETIME(Date) <= '2018-04-27 16:00:00'"))
+from data_methods.twitter_data_methods import twitter_database
+from data_methods.stock_data_methods import *
+
+
+# db_path = path.join(parent_path, 'resources/twitter_database.db')
+# db = twitter_database(db_path)
+# print(db.query("SELECT MIN(Date), MAX(Date), COUNT(*) FROM Tweets WHERE followers_count > 100000 \
+#                 AND DATETIME(Date) >= '2018-04-23 09:00:00' AND DATETIME(Date) <= '2018-04-27 16:00:00'"))
+
+db_path = path.join(parent_path, 'resources/nasdaq100_database.db')
+stock_xls_path = path.join(parent_path, "resources/NASDAQ_data/*.xls")
+db = stock_database(db_path)
+stock_names = stock_names(stock_xls_path)
+for name in stock_names:
+    print(db.query("SELECT COUNT(*) FROM " + name))
