@@ -1,10 +1,9 @@
 from os import path
-import sys
+from data_methods import twitter_data_methods as tm
 
 current_path = path.dirname(path.abspath(__file__))
 root_path = path.dirname(current_path)
-sys.path.append(root_path)
-from data_methods import twitter_data_methods as tm
+
 
 # streaming config
 tokens = {

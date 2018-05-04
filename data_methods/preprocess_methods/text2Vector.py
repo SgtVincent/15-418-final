@@ -18,7 +18,7 @@ DIMENSION = 300
 print("Google word2vec model loading, please wait ...")
 filename = resource_path + "GoogleNews-vectors-negative300.bin"
 model = KeyedVectors.load_word2vec_format(filename, binary=True)
-print("Load finished, running...")
+print("Load finished")
 
 
 def _text_tokenize(text):

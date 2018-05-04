@@ -52,7 +52,8 @@ class twitter_database:
             print("Commit 10000 inserts...")
 
     # query is a SQL format string
-    # return a what
+    # return a list of row(tuple)
     def query(self, query):
         self.cursor.execute(query)
         return self.cursor.fetchall()
+
