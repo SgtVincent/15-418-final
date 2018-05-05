@@ -49,8 +49,6 @@ def _text_tokenize(text):
 # input is a list of text
 # return a list of list of word vectors
 def texts2vectors(texts):
-    # load model
-
     # word to vec
     all_vectors = []
     zero_vector = [0] * DIMENSION
