@@ -1,12 +1,12 @@
 from __future__ import print_function
-from os import path
-from datetime import datetime
-from data_methods.preprocess_methods import time_convert
-from data_methods.preprocess_methods import generate_data_bucket
-from data_methods.twitter_data_methods import twitter_database
-from data_methods.preprocess_methods.text2Vector import *
+
 import pickle
-import multiprocessing as mp
+from datetime import datetime
+
+from data_methods.preprocess_methods import generate_data_bucket
+from data_methods.preprocess_methods import time_convert
+from data_methods.preprocess_methods.text2Vector import *
+from data_methods.twitter_data_methods import twitter_database
 
 # set up path
 current_path = path.dirname(path.abspath(__file__))
@@ -44,11 +44,9 @@ bucket_num = max(bucket_num, 1)
 text_buckets = generate_data_bucket(query_result, bucket_num, min_time)
 
 # merge all texts in a bucket into a single event vector
-
 # word to vector first
-threads = mp.Pool(processes=8)
 print("map working...")
-text_buckets = threads.map(texts2vectors, text_buckets)
+text_buckets = map(texts2vectors, text_buckets)
 print("map done...")
 
 # merge all text vector
