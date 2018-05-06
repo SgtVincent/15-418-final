@@ -15,7 +15,6 @@ from models.building_blocks import attention_based_lstm
 # shape of feature event: [batch_size, truncated_backprop_length, embedding_dimension]
 # shape of label : [batch_size, label_dimension]
 def complex_model(features, labels, mode, params):
-
     # declare all training data_methods
     X = features['X']
     Y = features['Y']
@@ -31,7 +30,7 @@ def complex_model(features, labels, mode, params):
     keep_rate = params['keep_rate']
 
     # first lstm for attention of exogenous
-    with tf.variable_scope('first lstm'):
+    with tf.variable_scope('first_lstm'):
         lstm0 = dynamic_lstm.dynamic_lstm(state_size=state_size, batch_size=batch_size, keep_rate=keep_rate)
         hidden_states, last_state = lstm0.run(X)
     hidden_states = tf.unstack(hidden_states, axis=1)
@@ -76,7 +75,7 @@ def complex_model(features, labels, mode, params):
     exogenous_output = exogenous_hidden_states[-1]  # [batch_size, state_size]
 
     # generate event hidden_state
-    with tf.variable_scope('second lstm'):
+    with tf.variable_scope('second_lstm'):
         lstm2 = dynamic_lstm.dynamic_lstm(state_size, batch_size, keep_rate)
         event_hidden_states, _ = lstm2.run(events)
 
