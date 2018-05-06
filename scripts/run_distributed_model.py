@@ -26,8 +26,8 @@ model_path = "hdfs://tmp/model_checkpoint"  # change path to DFS
 # master: internal(10.162.0.7)    external(35.203.99.177)
 # worker0: internal(10.162.0.6)   external(35.203.44.64)
 # worker1 : internal(10.162.0.4)  external(35.203.57.22)
-config = {"cluster": {'ps': ['10.162.0.6:2222'],
-                      'chief': ['10.162.0.7:2222']}}
+config = {"cluster": {'ps': ['localhost:2222'],
+                      'chief': ['localhost:2223']}}
 
 command_argv = sys.argv[1]
 pattern = "(\w{1,10})_(\d{1,10})"
