@@ -20,7 +20,7 @@ keep_rate = 0.9
 label_size = 1
 
 # set model dir
-model_path = "hdfs://temp/model_checkpoint"  # change path to DFS
+model_path = "hdfs://tmp/model_checkpoint"  # change path to DFS
 
 # set distributed parameters
 # master: internal(10.162.0.7)    external(35.203.99.177)
