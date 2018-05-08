@@ -12,7 +12,7 @@ from models.input_fn import eval_input_fn
 # set hyper parameters
 batch_size = 5
 max_time = 15
-state_size = 4
+state_size = 20
 keep_rate = 0.9
 label_size = 1
 
@@ -36,6 +36,6 @@ classifier = tf.estimator.Estimator(
     model_dir=model_path,
     config=run_config)
 
-train_spec = tf.estimator.TrainSpec(lambda: train_input_fn(100, max_time, batch_size), max_steps=100)
+train_spec = tf.estimator.TrainSpec(lambda: train_input_fn(1000, max_time, batch_size), max_steps=100)
 eval_spec = tf.estimator.EvalSpec(lambda: eval_input_fn(10, max_time, batch_size))
 tf.estimator.train_and_evaluate(classifier, train_spec, eval_spec)
