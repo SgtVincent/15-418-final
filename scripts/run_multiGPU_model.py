@@ -10,14 +10,14 @@ from models.input_fn import train_input_fn
 from models.input_fn import eval_input_fn
 import time
 # set hyper parameters
-batch_size = 10
+batch_size = 5
 max_time = 15
 state_size = 20
 keep_rate = 0.9
 label_size = 1
 
 # set model dir
-model_path = "./"  # change path to DFS
+model_path = "./checkpoint"  # change path to DFS
 
 # set up the config
 # distribution = MirroredStrategy(num_gpus=2)
