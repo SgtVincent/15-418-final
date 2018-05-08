@@ -20,8 +20,8 @@ label_size = 1
 model_path = "./"  # change path to DFS
 
 # set up the config
-distribution = MirroredStrategy(num_gpus=2)
-run_config = tf.estimator.RunConfig(train_distribute=distribution, save_summary_steps=10)
+# distribution = MirroredStrategy(num_gpus=2)
+run_config = tf.estimator.RunConfig(save_summary_steps=10)
 
 # set the model
 classifier = tf.estimator.Estimator(
