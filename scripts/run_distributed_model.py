@@ -26,9 +26,9 @@ model_path = "hdfs://gpu-cluster-m:8020/tmp"  # change path to DFS
 # master: 10.142.0.5    35.231.226.222
 # worker0: 10.142.0.4   35.229.97.91
 # worker1 : 10.162.0.7  35.227.78.137
-config = {"cluster": {'ps': ['10.142.0.5'],
-                      'chief': ['10.142.0.4'],
-                      'worker':['10.162.0.7']}}
+config = {"cluster": {'ps': ['10.142.0.5:2250'],
+                      'chief': ['10.142.0.4:2251'],
+                      'worker':['10.162.0.7:2252']}}
 
 command_argv = sys.argv[1]
 pattern = "(\w{1,10})_(\d{1,10})"
