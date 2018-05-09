@@ -26,8 +26,8 @@ model_path = "hdfs://cluster-test-m:8020/tmp"  # change path to DFS
 # master: 10.162.0.7    35.231.226.222
 # worker0: 10.142.0.4   35.229.97.91
 # worker1 : 10.162.0.7  35.227.78.137
-config = {"cluster": {'ps': ['10.162.0.7:2249'],
-                      'chief': ['10.162.0.4:2250']}}
+config = {"cluster": {'ps': ['10.162.0.7:2259'],
+                      'chief': ['10.162.0.4:2260']}}
 
 command_argv = sys.argv[1]
 pattern = "(\w{1,10})_(\d{1,10})"
