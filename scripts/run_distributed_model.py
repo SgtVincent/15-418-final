@@ -20,14 +20,15 @@ keep_rate = 0.9
 label_size = 1
 
 # set model dir
-model_path = "hdfs://cluster-test-m:8020/tmp"  # change path to DFS
+model_path = "hdfs://gpu-cluster-m:8020/tmp"  # change path to DFS
 
 # set distributed parameters
-# master: 10.162.0.4    35.203.57.22
-# worker0: 10.162.0.6   35.203.99.177
-# worker1 : 10.162.0.7  35.203.98.108
-config = {"cluster": {'ps': ['10.162.0.4:2222'],
-                      'chief': ['10.162.0.6:2223']}}
+# master: 10.142.0.5    35.231.226.222
+# worker0: 10.142.0.4   35.229.97.91
+# worker1 : 10.162.0.7  35.227.78.137
+config = {"cluster": {'ps': ['10.142.0.5'],
+                      'chief': ['10.142.0.4'],
+                      'worker':['10.162.0.7']}}
 
 command_argv = sys.argv[1]
 pattern = "(\w{1,10})_(\d{1,10})"
