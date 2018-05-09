@@ -20,14 +20,15 @@ keep_rate = 0.9
 label_size = 1
 
 # set model dir
-model_path = "hdfs://cluster-test-m:8020/tmp"  # change path to DFS
+model_path = "hdfs://default/user/checkpoints"  # change path to DFS
 
 # set distributed parameters
 # master: 10.162.0.7    35.231.226.222
 # worker0: 10.142.0.4   35.229.97.91
 # worker1 : 10.162.0.7  35.227.78.137
 config = {"cluster": {'ps': ['10.162.0.7:2259'],
-                      'chief': ['10.162.0.4:2260']}}
+                      'chief': ['10.162.0.4:2260'],
+                      'worker':['10.162.0.6:2261']}}
 
 command_argv = sys.argv[1]
 pattern = "(\w{1,10})_(\d{1,10})"
