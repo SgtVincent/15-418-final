@@ -4,6 +4,7 @@ import re
 import tensorflow as tf
 from os import path
 from os import environ
+import time
 
 current_path = path.dirname(path.abspath(__file__))
 root_path = path.dirname(current_path)
@@ -53,4 +54,7 @@ classifier = tf.estimator.Estimator(
 
 train_spec = tf.estimator.TrainSpec(lambda: train_input_fn(100, max_time, batch_size), max_steps=100)
 eval_spec = tf.estimator.EvalSpec(lambda: eval_input_fn(10, max_time, batch_size))
+s = time.time()
 tf.estimator.train_and_evaluate(classifier, train_spec, eval_spec)
+e = time.time()
+print(e-s)
